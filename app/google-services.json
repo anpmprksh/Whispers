@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "645846038638",
+    "firebase_url": "https://whispers-53db6.firebaseio.com",
+    "project_id": "whispers-53db6",
+    "storage_bucket": "whispers-53db6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:645846038638:android:0168562a9b588712",
+        "android_client_info": {
+          "package_name": "app.whispers"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "645846038638-6nk984ojmq7onipn84dqt46ivb2llvbc.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "app.whispers",
+            "certificate_hash": "4f95a8669926673167e69bf60f07939482d33c02"
+          }
+        },
+        {
+          "client_id": "645846038638-lag5k5ld9f0adbjm0svuvjq7lvo07c6s.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA9jE1-ftej-sKywlLj8ETE2QuZtg0JPig"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "645846038638-lag5k5ld9f0adbjm0svuvjq7lvo07c6s.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

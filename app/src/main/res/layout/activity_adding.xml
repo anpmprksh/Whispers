@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_adding"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="app.whispers.Adding">
+
+    <Spinner
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp"
+        android:id="@+id/spinner0"
+        android:entries="@array/Name"
+        android:prompt="@string/Author"
+        />
+
+    <Spinner
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_marginTop="50dp"
+        android:layout_alignTop="@+id/spinner0"
+android:layout_marginLeft="2dp"
+        android:id="@+id/spinner"
+        android:entries="@array/Dated"
+        android:prompt="@string/Date"/>
+
+    <Spinner
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/spinner0"
+        android:layout_marginTop="50dp"
+        android:layout_marginLeft="71dp"
+        android:entries="@array/mon"
+        android:prompt="@string/Months"
+        android:id="@+id/spinner2" />
+
+    <Spinner
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/spinner0"
+        android:layout_marginTop="50dp"
+
+        android:layout_marginLeft="205dp"
+
+        android:entries="@array/yeared"
+        android:prompt="@string/Year"
+        android:id="@+id/spinner4"
+        />
+
+    <EditText
+        android:inputType="textMultiLine"
+        android:ems="10"
+        android:lines="10"
+        android:id="@+id/editText"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:layout_below="@+id/spinner"
+        android:layout_alignLeft="@+id/spinner"
+        android:layout_alignStart="@+id/spinner"
+        android:layout_marginTop="38dp"
+        android:scrollbars="vertical"
+
+
+
+        />
+
+    <Button
+        android:text="Add"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/editText"
+        android:layout_toRightOf="@+id/spinner2"
+        android:layout_toEndOf="@+id/spinner2"
+        android:layout_marginLeft="24dp"
+        android:layout_marginStart="24dp"
+        android:id="@+id/button"
+        android:onClick="inputData" />
+
+    <Button
+        android:text="Back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="19dp"
+        android:layout_marginStart="19dp"
+        android:id="@+id/button2"
+
+        android:layout_below="@+id/editText"
+        android:onClick="Back" />
+
+</RelativeLayout>
