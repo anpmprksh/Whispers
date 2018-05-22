@@ -60,7 +60,7 @@ SUBA S;
 
 
 }
-class subm implements Serializable
+class subm
 {
     String name;
     String sub;
@@ -97,6 +97,12 @@ class subm implements Serializable
     {
         return 10000*y+100*m+d;
     }
+
+
+
+
+
+
 }
 
 class SUBA implements Serializable

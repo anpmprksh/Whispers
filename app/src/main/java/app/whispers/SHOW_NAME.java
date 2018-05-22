@@ -17,8 +17,14 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
+
 
 import static app.whispers.R.id.button10;
 
@@ -28,10 +34,11 @@ public class SHOW_NAME extends AppCompatActivity {
     private DatabaseReference mDatabase;
     private static final String TAG = "SHOW_NAME";
     Map<String, Object> map;
-   Iterator<Map.Entry<String, Object>> itr;
+    List<Map.Entry<String,Object>> entries;
+    Iterator itr;
 
     Map.Entry<String, Object> entry;
-    Iterator<Map.Entry<String, Object>> curitr;
+    Iterator curitr;
     boolean found=false;
     Button btn;
 
@@ -76,7 +83,33 @@ public class SHOW_NAME extends AppCompatActivity {
                         btn.setEnabled(true);
 
                         map = (Map<String, Object>) dataSnapshot.getValue();
-                        curitr=map.entrySet().iterator();
+
+                        entries = new ArrayList<Map.Entry<String,Object>>(map.size());
+
+                        entries.addAll(map.entrySet());
+
+                        for(int i = 0; i <entries.size()-1; i++) {
+                            for(int j = 0; j < entries.size()-i-1; j++) {
+
+                                Map s1 = (Map) entries.get(j).getValue();
+                                Map s2 = (Map) entries.get(j+1).getValue();
+                                Long d1= (Long)s1.get("date");
+                                Long d2= (Long)s2.get("date");
+
+
+                                if(d1>d2 ) {
+                                    Map.Entry<String,Object> temp = entries.get(j);
+                                    entries.set(j, entries.get(j + 1));
+                                    entries.set(j + 1, temp);
+                                    //Log.d(TAG,"sorting");
+                                }
+                            }
+                        }
+
+
+                        curitr=entries.iterator();
+
+
 
 
                       //  itr = map.entrySet().iterator();
@@ -86,7 +119,7 @@ public class SHOW_NAME extends AppCompatActivity {
 
                         while(curitr.hasNext()) {
 
-                            entry=curitr.next();
+                            entry=(Map.Entry<String, Object>)curitr.next();
                             Map singleUser = (Map) entry.getValue();
 
                             String name = (String) singleUser.get("name");
@@ -176,8 +209,30 @@ public class SHOW_NAME extends AppCompatActivity {
 
                         map = (Map<String, Object>) dataSnapshot.getValue();
 
+                        entries = new ArrayList<Map.Entry<String,Object>>(map.size());
+
+                        entries.addAll(map.entrySet());
+
+                        for(int i = 0; i <entries.size()-1; i++) {
+                            for(int j = 0; j < entries.size()-i-1; j++) {
+
+                                Map s1 = (Map) entries.get(j).getValue();
+                                Map s2 = (Map) entries.get(j+1).getValue();
+                                Long d1= (Long)s1.get("date");
+                                Long d2= (Long)s2.get("date");
+
+
+                                if(d1>d2 ) {
+                                    Map.Entry<String,Object> temp = entries.get(j);
+                                    entries.set(j, entries.get(j + 1));
+                                    entries.set(j + 1, temp);
+                                    //Log.d(TAG,"sorting");
+                                }
+                            }
+                        }
+
                         itr = curitr;
-                        Iterator<Map.Entry<String, Object>> x=map.entrySet().iterator();
+
 
                     /*    if(itr.hasNext()) {
                             if (itr.next().equals(x.next())) {
@@ -191,7 +246,7 @@ public class SHOW_NAME extends AppCompatActivity {
                         //  entry = itr.next();
                         if(itr.hasNext()==false)
                         {
-                            itr = map.entrySet().iterator();
+                            itr = entries.iterator();
                             //curitr=itr;
 
                             //Log.d(TAG,"one");
@@ -204,7 +259,7 @@ public class SHOW_NAME extends AppCompatActivity {
                         while (true)
                         {
 
-                            entry=itr.next();
+                            entry=(Map.Entry<String, Object>)itr.next();
 
                             Map singleUser = (Map) entry.getValue();
 
@@ -227,7 +282,7 @@ public class SHOW_NAME extends AppCompatActivity {
 
                                 if(itr.hasNext()==false)
                                 {
-                                    itr = map.entrySet().iterator();
+                                    itr = entries.iterator();
                                     curitr=itr;
 
 
@@ -238,7 +293,7 @@ public class SHOW_NAME extends AppCompatActivity {
                             }
                             if(itr.hasNext()==false)
                             {
-                                itr = map.entrySet().iterator();
+                                itr = entries.iterator();
                                 curitr=itr;
 
 
@@ -288,4 +343,8 @@ public class SHOW_NAME extends AppCompatActivity {
         });
 
     }
+
+
+
+
 }

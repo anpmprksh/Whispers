@@ -8,11 +8,15 @@ import android.view.View;
 import android.content.Intent;
 import android.widget.Button;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
+
 
 import android.support.v7.app.AlertDialog;
 import android.widget.EditText;
@@ -30,11 +34,16 @@ public class SHOW extends AppCompatActivity {
     private DatabaseReference mDatabase;
     private static final String TAG = "SHOW";
     Map<String, Object> map;
-    Iterator<Map.Entry<String, Object>> itr;
+    List<Map.Entry<String,Object>> entries;
+
+    Iterator itr;
 
     Map.Entry<String, Object> entry;
     Button btn2;
     Button btn3;
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,10 +70,40 @@ public class SHOW extends AppCompatActivity {
                 btn3.setEnabled(true);
 
                 map = (Map<String, Object>) dataSnapshot.getValue();
+                /*Map<String, subm> resultSet = map.entrySet()
+                        .stream()
+                        .sorted(Comparator.comparingInt(e -> e.getValue().getId()))
+                        .collect(Collectors.toMap(Map.Entry::getKey,
+                                Map.Entry::getValue,
+                                (left, right) -> left,
+                                LinkedHashMap::new));*/
 
-                itr = map.entrySet().iterator();
+                entries = new ArrayList<Map.Entry<String,Object>>(map.size());
 
-                entry = itr.next();
+                entries.addAll(map.entrySet());
+
+                for(int i = 0; i <entries.size()-1; i++) {
+                    for(int j = 0; j < entries.size()-i-1; j++) {
+
+                        Map s1 = (Map) entries.get(j).getValue();
+                        Map s2 = (Map) entries.get(j+1).getValue();
+                        Long d1= (Long)s1.get("date");
+                        Long d2= (Long)s2.get("date");
+
+
+                        if(d1>d2 ) {
+                            Map.Entry<String,Object> temp = entries.get(j);
+                            entries.set(j, entries.get(j + 1));
+                            entries.set(j + 1, temp);
+                            //Log.d(TAG,"sorting");
+                        }
+                    }
+                }
+
+
+                itr=entries.iterator();
+
+                entry = (Map.Entry<String, Object>) itr.next();
 
 
                 Map singleUser = (Map) entry.getValue();
@@ -94,7 +133,7 @@ public class SHOW extends AppCompatActivity {
                     Subm.setText(Submi);
 
 
-                Log.d(TAG,name+" "+Submi);
+                //Log.d(TAG,name+" "+Submi);
             }
 
             @Override
@@ -138,11 +177,11 @@ public class SHOW extends AppCompatActivity {
 
                         if(itr.hasNext()==false)
                         {
-                            itr = map.entrySet().iterator();
+                            itr = entries.iterator();
 
                         }
                        // prev=entry;
-                        entry = itr.next();
+                        entry = (Map.Entry<String, Object>) itr.next();
 
 
 
@@ -205,11 +244,11 @@ public class SHOW extends AppCompatActivity {
                         mDatabase.child(key).setValue(null);
                         if(itr.hasNext()==false)
                         {
-                            itr = map.entrySet().iterator();
+                            itr = entries.iterator();
 
                         }
                         // prev=entry;
-                        entry = itr.next();
+                        entry= (Map.Entry<String, Object>) itr.next();
 
 
 
